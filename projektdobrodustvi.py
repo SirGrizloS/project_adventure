@@ -5,14 +5,6 @@ sanity = 100
 hp_medicine = 3
 sanity_medicine = 3
 pochoden = 3
-random = randrange(0, 100)
-random_calculate = random % 2
-if random_calculate == 1:
-    random_final = True
-else:
-    random_final = False
-random_damage = randrange(15, 30)
-
 
 
 def fight():
@@ -20,6 +12,18 @@ def fight():
     print("Zaútočili na vás!")
     enemy_hp = 100
     while True:
+        if enemy_hp <= 0:
+            print("Vyhrál jste!")
+        elif hp <= 0:
+            print("Prohrál jste!")
+        
+        random_value = randrange(0, 100)
+        random_calculate = random_value % 2
+        if random_calculate == 1:
+            random_final = True
+        else:
+            random_final = False
+        random_damage = randrange(15, 30)
         try:
             print("1. Útok")
             print("2. Krytí")
@@ -31,12 +35,17 @@ def fight():
                     enemy_hp = enemy_hp - random_damage
                     if random_damage >= 25 and random_damage <= 30:
                         print(f"Udělil jste kritický zásah za {random_damage}HP!")
-                        print(f"Nepřítel má nyní {enemy_hp}HP")
+                        if enemy_hp > 0:
+                            print(f"Nepřítel má nyní {enemy_hp}HP")
+                        elif enemy_hp <= 0:
+                            print("Zneškodnil jste nepřítele!")
                         print(f"Máte {hp}HP!")
                     else:
                         print(f"Udělil jste poškození za {random_damage}HP!")
                         print(f"Nepřítel má nyní {enemy_hp}HP")
                         print(f"Máte {hp}HP!")
+                elif random_final == False:
+                    print("Minul jste se!")
         except ValueError:
             print("Napište 1, nebo 2!")
 
